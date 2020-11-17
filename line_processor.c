@@ -123,6 +123,8 @@ void put_buffer1(char *line){
   //Unlock mutex
   pthread_mutex_unlock(&buffer1_mutex);
 
+  //for (int i=0; i<buffer1_count;i++)
+  //  printf("PUT BUFF 1  >> %s\n\n", buffer1[i]);
   return;
 }
 
@@ -153,6 +155,8 @@ char* get_buffer1(){
   //Unlock mutex
   pthread_mutex_unlock(&buffer1_mutex);
 
+  //printf("GET BUFF 1 >> %s", get_buff1);
+
   return get_buff1;
 
 }
@@ -178,7 +182,8 @@ void put_buffer2(char *line){
 
   //Unlock mutex
   pthread_mutex_unlock(&buffer2_mutex);
-
+  //for (int i=0; i<buffer2_count;i++)
+  //  printf("PUT BUFF 2  >> %s\n\n", buffer2[i]);
   return;
 }
 
@@ -209,6 +214,8 @@ char* get_buffer2(){
   //Unlock mutex
   pthread_mutex_unlock(&buffer2_mutex);
 
+  //printf("GET BUFF 2 >> %s", get_buff2);
+
   return get_buff2;
 
 }
@@ -238,12 +245,15 @@ void put_buffer3(char *line){
   //Unlock mutex
   pthread_mutex_unlock(&buffer3_mutex);
 
+  //printf("PUT BUFF 3  >> %s\n\n", buffer3);
+
   return;
 }
 
 // Get data from buffer3
 // Act as buffer3 consumer
 char* get_buffer3(){
+
   //Lock mutex before changing buffer3
   pthread_mutex_lock(&buffer3_mutex);
 
@@ -268,6 +278,7 @@ char* get_buffer3(){
   pthread_mutex_unlock(&buffer3_mutex);
 
   //free(get_buff3);
+  //printf("GET BUFF 3  >> %s\n\n", get_buff3);
 
   return get_buff3;
 }
@@ -385,7 +396,9 @@ void *output_t(void *args){
   output_line = (char *)malloc((MAX_CHAR)*sizeof(char));
   memset(output_line, '\0', MAX_CHAR);
 
+  //printf("BUFF 3 >> %s\n\n", buffer3);
   output_line = get_buffer3();
+  //printf("<OUTPUT_LINE> %s\n\n", output_line);
 
   // total line needed to be printing
   int total_lines = 0;
