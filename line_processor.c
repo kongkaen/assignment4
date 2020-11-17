@@ -308,6 +308,7 @@ void *get_input_t(void *args){
 // And put the result into buffer2 producer
 void *sepLine_t(void *args){
 
+  int i;
   int terminate =0;
 
   while (terminate == 0){
@@ -322,7 +323,7 @@ void *sepLine_t(void *args){
 
     // Loop through each character in get_buff1
     // to replace '\n' with space
-      for (int i = 0; i < strlen(get_buff1); ++i) {
+      for (i = 0; i < strlen(get_buff1); ++i) {
           if (get_buff1[i] == '\n'){
               get_buff1[i] = ' ';
           }
@@ -378,7 +379,7 @@ void *repPlus_t(void *args){
 // Function that output_t thread consumes shared buffer3
 // Then printing the result that have 80 character in each line
 void *output_t(void *args){
-
+  int i, character;
   // consume buffer3 into output_line
   char *output_line;
   output_line = (char *)malloc((MAX_CHAR)*sizeof(char));
@@ -393,15 +394,15 @@ void *output_t(void *args){
   if (strlen(output_line) >= CHAR_PER_LINE) {
 
     // number of lines that will be printing
-    int num_lines = strlen(output_line)/80;
+    int num_lines = strlen(output_line)/CHAR_PER_LINE;
 
     // print each line
-    for (int i = total_lines; i < num_lines; ++i) {
+    for (i = total_lines; i < num_lines; ++i) {
                 // each line has 80 character + '\n' = 81 total
                 char print_line[CHAR_PER_LINE + 1];
                 memset(print_line, '\0', sizeof(print_line));
 
-                for (int character = 0; character < CHAR_PER_LINE; ++character) {
+                for (character = 0; character < CHAR_PER_LINE; ++character) {
                     print_line[character] = output_line[i*CHAR_PER_LINE+character];
                 }
 
